@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище NexusGriefModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="donate">
+          <Key>
+            <PropertyRef Name="donatename" />
+          </Key>
+          <Property Name="donatename" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="donateprice" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="donatename" Type="nvarchar" MaxLength="10" />
+          <Property Name="vk" Type="nvarchar(max)" />
+          <Property Name="telegram" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__player__donatena__276EDEB3">
+          <End Role="donate" Type="Self.donate" Multiplicity="0..1" />
+          <End Role="player" Type="Self.player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donate">
+              <PropertyRef Name="donatename" />
+            </Principal>
+            <Dependent Role="player">
+              <PropertyRef Name="donatename" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище NexusGriefModelContainer">
+          <EntitySet Name="donate" EntityType="Self.donate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="player" EntityType="Self.player" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__player__donatena__276EDEB3" Association="Self.FK__player__donatena__276EDEB3">
+            <End Role="donate" EntitySet="donate" />
+            <End Role="player" EntitySet="player" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NexusGriefModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="donate">
+          <Key>
+            <PropertyRef Name="donatename" />
+          </Key>
+          <Property Name="donatename" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="donateprice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="player" Relationship="Self.FK__player__donatena__276EDEB3" FromRole="donate" ToRole="player" />
+        </EntityType>
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nickname" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="donatename" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="vk" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="telegram" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="donate" Relationship="Self.FK__player__donatena__276EDEB3" FromRole="player" ToRole="donate" />
+        </EntityType>
+        <Association Name="FK__player__donatena__276EDEB3">
+          <End Role="donate" Type="Self.donate" Multiplicity="0..1" />
+          <End Role="player" Type="Self.player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="donate">
+              <PropertyRef Name="donatename" />
+            </Principal>
+            <Dependent Role="player">
+              <PropertyRef Name="donatename" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NexusGriefContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="donate" EntityType="Self.donate" />
+          <EntitySet Name="player" EntityType="Self.player" />
+          <AssociationSet Name="FK__player__donatena__276EDEB3" Association="Self.FK__player__donatena__276EDEB3">
+            <End Role="donate" EntitySet="donate" />
+            <End Role="player" EntitySet="player" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище NexusGriefModelContainer" CdmEntityContainer="NexusGriefContext">
+          <EntitySetMapping Name="donate">
+            <EntityTypeMapping TypeName="NexusGriefModel.donate">
+              <MappingFragment StoreEntitySet="donate">
+                <ScalarProperty Name="donatename" ColumnName="donatename" />
+                <ScalarProperty Name="donateprice" ColumnName="donateprice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="player">
+            <EntityTypeMapping TypeName="NexusGriefModel.player">
+              <MappingFragment StoreEntitySet="player">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="donatename" ColumnName="donatename" />
+                <ScalarProperty Name="vk" ColumnName="vk" />
+                <ScalarProperty Name="telegram" ColumnName="telegram" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
